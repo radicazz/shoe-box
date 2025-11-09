@@ -47,6 +47,28 @@
 - Memory footprint: <100MB server RAM
 
 ## Development Requirements
-- Node.js 18+ (for Astro build)
-- npm/pnpm (package management)
-- No compilation watchers needed in production
+- **Node.js 18+** - Runtime for Astro build
+- **Volta** - Version manager, pins Node/pnpm per-project (automatic switching)
+- **pnpm** - Package manager with strict isolation, 3x faster than npm
+- No compilation watchers in production
+
+## Dependency Isolation (Python venv equivalent)
+
+**Setup once:**
+```bash
+curl https://get.volta.sh | bash          # Install Volta
+volta install node@18 pnpm@8              # Install tools
+```
+
+**Per-project (automatic):**
+```bash
+cd shoe-box
+volta pin node@18 pnpm@8                  # Pins to package.json
+pnpm install                              # Isolated node_modules
+```
+
+**Benefits:**
+- Volta auto-switches Node versions on `cd` (no manual activation)
+- pnpm uses hardlinks to global store (fast installs, minimal disk usage)
+- Zero host pollution - dependencies scoped to project
+- Reproducible builds across machines
