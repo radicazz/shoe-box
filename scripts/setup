@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "⚙️  Setting up shoe-box..."
+echo ""
+
+# Check Node.js
+echo "1️⃣  Checking Node.js..."
+if ! command -v node &> /dev/null; then
+  echo "  ✗ Node.js not found!"
+  echo "  💡 Install Node.js 18+ from https://nodejs.org/"
+  exit 1
+fi
+
+NODE_VERSION=$(node --version)
+echo "  ✓ Found Node.js $NODE_VERSION"
+
+# Install dependencies
+echo ""
+echo "2️⃣  Installing dependencies..."
+npm install
+
+# Build project
+echo ""
+echo "3️⃣  Building project..."
+npm run build
+
+echo ""
+echo "✅ Setup complete!"
+echo ""
+echo "Next steps:"
+echo "  • Run './scripts/dev' to start development server"
+echo "  • Run './scripts/doctor' to verify environment"
+echo "  • Edit public/gallery.json to customize profile"

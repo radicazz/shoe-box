@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "🧹 Cleaning build artifacts..."
+
+rm -rf dist/ .astro/
+echo "  ✓ Removed dist/ and .astro/"
+
+if [ -d node_modules ]; then
+  rm -rf node_modules/
+  echo "  ✓ Removed node_modules/"
+fi
+
+if [ -f package-lock.json ]; then
+  rm -f package-lock.json
+  echo "  ✓ Removed package-lock.json"
+fi
+
+echo ""
+echo "✅ Clean complete!"
+echo "💡 Run 'npm install' to reinstall dependencies"

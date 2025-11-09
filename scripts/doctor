@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "🏥 Running environment checks..."
+echo ""
+
+EXIT_CODE=0
+
+# Check Node.js version
+echo "📦 Node.js:"
+if command -v node &> /dev/null; then
+  NODE_VERSION=$(node --version)
+  echo "  ✓ Found: $NODE_VERSION"
+  
+  # Extract major version (remove 'v' prefix)
+  NODE_MAJOR=$(echo "$NODE_VERSION" | sed 's/v\([0-9]*\).*/\1/')
+  if [ "$NODE_MAJOR" -lt 18 ]; then
+    echo "  ⚠️  Warning: Node.js 18+ required, found $NODE_VERSION"
+    EXIT_CODE=1
+  fi
+else
+  echo "  ✗ Node.js not found"
+  EXIT_CODE=1
+fi
+
+# Check npm
+echo ""
+echo "📦 npm:"
+if command -v npm &> /dev/null; then
+  echo "  ✓ Found: $(npm --version)"
+else
+  echo "  ✗ npm not found"
+  EXIT_CODE=1
+fi
+
+# Check dependencies
+echo ""
+echo "📚 Dependencies:"
+if [ -d node_modules ]; then
+  echo "  ✓ node_modules/ exists"
+  
+  # Check key packages
+  for pkg in astro @astrojs/tailwind tailwindcss alpinejs; do
+    if [ -d "node_modules/$pkg" ]; then
+      echo "  ✓ $pkg installed"
+    else
+      echo "  ✗ $pkg missing"
+      EXIT_CODE=1
+    fi
+  done
+else
+  echo "  ✗ node_modules/ not found"
+  echo "  💡 Run 'npm install' to install dependencies"
+  EXIT_CODE=1
+fi
+
+# Check project structure
+echo ""
+echo "📁 Project structure:"
+REQUIRED_DIRS=("src" "src/components" "src/layouts" "src/pages" "src/styles" "public" "public/media")
+for dir in "${REQUIRED_DIRS[@]}"; do
+  if [ -d "$dir" ]; then
+    echo "  ✓ $dir/"
+  else
+    echo "  ✗ $dir/ missing"
+    EXIT_CODE=1
+  fi
+done
+
+REQUIRED_FILES=("package.json" "astro.config.mjs" "tailwind.config.mjs" "public/gallery.json")
+for file in "${REQUIRED_FILES[@]}"; do
+  if [ -f "$file" ]; then
+    echo "  ✓ $file"
+  else
+    echo "  ✗ $file missing"
+    EXIT_CODE=1
+  fi
+done
+
+# Test build
+echo ""
+echo "🔨 Build test:"
+if npm run build > /tmp/shoe-box-build.log 2>&1; then
+  echo "  ✓ Build successful"
+  if [ -f dist/index.html ]; then
+    SIZE=$(du -sh dist | cut -f1)
+    echo "  ✓ dist/index.html exists ($SIZE total)"
+  else
+    echo "  ✗ dist/index.html not found"
+    EXIT_CODE=1
+  fi
+else
+  echo "  ✗ Build failed (see /tmp/shoe-box-build.log)"
+  EXIT_CODE=1
+fi
+
+echo ""
+if [ $EXIT_CODE -eq 0 ]; then
+  echo "✅ All checks passed! Environment is healthy."
+else
+  echo "❌ Some checks failed. Review the output above."
+fi
+
+exit $EXIT_CODE

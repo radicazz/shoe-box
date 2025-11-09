@@ -1,0 +1,8 @@
+#usr/bin/env bash
+set -euo pipefail
+
+echo "🚀 Starting development server..."
+echo "📍 Local: http://localhost:4321/"
+echo ""
+
+npm run dev
