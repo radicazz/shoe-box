@@ -1,4 +1,6 @@
 ---
+import EffectCard from '../ui/EffectCard.astro';
+
 export interface Props {
   text?: string;
   skills?: string[];
@@ -8,7 +10,7 @@ const { text, skills = [] } = Astro.props as Props;
 const skillList = skills.filter(Boolean);
 ---
 {(text || skillList.length > 0) && (
-  <div class="flex h-full flex-col rounded-2xl border border-gray-200/70 bg-white/80 p-6 text-left text-base leading-relaxed text-gray-700 shadow-sm backdrop-blur dark:border-gray-700/60 dark:bg-gray-900/60 dark:text-gray-200">
+  <EffectCard variant="glow" class="flex flex-col text-left text-base leading-relaxed">
     {text && (
       <>
         <p class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">About</p>
@@ -27,5 +29,5 @@ const skillList = skills.filter(Boolean);
         </ul>
       </div>
     )}
-  </div>
+  </EffectCard>
 )}

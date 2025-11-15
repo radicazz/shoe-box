@@ -1,0 +1,17 @@
+---
+import type { EffectVariant } from '../../utils/effects';
+import { getEffectClasses } from '../../utils/effects';
+
+export interface Props {
+  variant?: EffectVariant;
+  class?: string;
+}
+
+const { variant = 'scale', class: className = '' } = Astro.props as Props;
+const baseClasses =
+  'relative h-full rounded-2xl border border-gray-200/70 bg-white/80 p-6 text-gray-800 shadow-sm backdrop-blur dark:border-gray-700/60 dark:bg-gray-900/60 dark:text-gray-100';
+const resolvedVariant = getEffectClasses(variant);
+---
+<div class={`${baseClasses} ${resolvedVariant} ${className}`}>
+  <slot />
+</div>
