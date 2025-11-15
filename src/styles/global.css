@@ -1,5 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root { color-scheme: light; }
+:root {
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
 html { scroll-behavior: smooth; }
+
+.theme-icon {
+  display: inline-flex;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.theme-icon--moon {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-icon--sun {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-icon--moon {
+  display: inline-flex;
+}
