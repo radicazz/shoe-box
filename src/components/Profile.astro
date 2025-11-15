@@ -18,21 +18,8 @@ const resolvedPhoto = isExternal.test(photo)
   <div>
     <img src={resolvedPhoto} alt={`Photo of ${name}`} width="120" height="120" loading="eager" class="mx-auto h-[120px] w-[120px] rounded-full object-cover shadow" />
   </div>
-  <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+  <div class="mt-6">
     <h2 id="profile-heading" class="text-4xl font-bold">{name}</h2>
-    <button type="button" data-theme-toggle aria-pressed="false" class="inline-flex items-center gap-3 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" aria-label="Toggle color theme">
-      <span class="theme-icon theme-icon--sun" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-5 w-5">
-          <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM4 2h2v4H4zm13.24 2.84l1.79-1.8-1.41-1.41-1.8 1.79 1.42 1.42zM18 2h2v4h-2zM11 4h2v4h-2zm9 7h4v2h-4zm-18 0h4v2H2zm15.66 7.66l1.79 1.79 1.41-1.41-1.79-1.8-1.41 1.42zM18 18h2v4h-2zm-4 2h2v4h-2zm-3-1a5 5 0 110-10 5 5 0 010 10zm-7.66 1.66l1.41 1.41 1.8-1.79-1.41-1.41-1.8 1.79z" />
-        </svg>
-      </span>
-      <span class="theme-icon theme-icon--moon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-5 w-5">
-          <path d="M12.75 2a9.75 9.75 0 108.44 15.16 8 8 0 01-10-10 9.69 9.69 0 001.56-5.16z" />
-        </svg>
-      </span>
-      <span class="sr-only" data-theme-toggle-label>Switch to dark mode</span>
-    </button>
   </div>
   <p class="mt-6 text-lg text-gray-600 dark:text-gray-300">
     <a class="text-blue-600 hover:underline" href={`mailto:${email}`}>{email}</a>

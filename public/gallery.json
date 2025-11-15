@@ -1,11 +1,14 @@
 {
+  "site": {
+    "title": "Portfolio Template"
+  },
   "profile": {
-    "name": "Your Name",
+    "name": "Shoe Box",
     "photo": "/media/profile.svg",
     "contact": {
       "email": "you@example.com",
       "github": "https://github.com/yourname",
-      "linkedin": ""
+      "linkedin": "https://linkedin.com/yourname"
     }
   },
   "items": [

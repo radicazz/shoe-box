@@ -1,6 +1,6 @@
 {
   "name": "shoe-box",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Lightweight personal Pinterest-style portfolio gallery.",
   "main": "index.js",
   "directories": {
