@@ -1,0 +1,52 @@
+:root {
+  color-scheme: light;
+  --font-body: 'VT323', 'Cascadia Code', 'Fira Code', 'SFMono-Regular', Menlo, monospace;
+  --color-bg: #f6f3ee;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f2eee7;
+  --color-border: #d8d2c8;
+  --color-text: #1c1c1c;
+  --color-text-muted: #6a645c;
+  --color-heading: #151515;
+  --color-accent: #0f6ab4;
+  --color-accent-strong: #0b4f8a;
+  --effect-shadow-color: rgba(15, 23, 42, 0.12);
+  --effect-glow-primary: rgba(15, 106, 180, 0.32);
+  --effect-glow-secondary: rgba(236, 72, 153, 0.18);
+  --effect-pulse-start: rgba(15, 106, 180, 0.32);
+  --effect-pulse-mid: rgba(236, 72, 153, 0.18);
+  --effect-border-slide-start: rgba(15, 106, 180, 0.62);
+  --effect-border-slide-middle: rgba(16, 124, 16, 0.55);
+  --effect-border-slide-end: rgba(236, 72, 153, 0.55);
+  --parallax-x: 0px;
+  --parallax-y: 0px;
+  --parallax-layer-primary: rgba(15, 106, 180, 0.1);
+  --parallax-layer-secondary: rgba(236, 72, 153, 0.1);
+  --network-node: rgba(20, 24, 28, 0.5);
+  --network-link: rgba(20, 24, 28, 0.35);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #121212;
+  --color-surface: #1a1a1d;
+  --color-surface-muted: #202024;
+  --color-border: #2a2a2e;
+  --color-text: #d6d6d6;
+  --color-text-muted: #9d9da3;
+  --color-heading: #f2f2f2;
+  --color-accent: #569cd6;
+  --color-accent-strong: #78c0f8;
+  --effect-shadow-color: rgba(0, 0, 0, 0.45);
+  --effect-glow-primary: rgba(86, 156, 214, 0.45);
+  --effect-glow-secondary: rgba(236, 72, 153, 0.4);
+  --effect-pulse-start: rgba(86, 156, 214, 0.45);
+  --effect-pulse-mid: rgba(236, 72, 153, 0.36);
+  --effect-border-slide-start: rgba(236, 72, 153, 0.75);
+  --effect-border-slide-middle: rgba(86, 156, 214, 0.75);
+  --effect-border-slide-end: rgba(16, 185, 129, 0.75);
+  --parallax-layer-primary: rgba(70, 70, 70, 0.22);
+  --parallax-layer-secondary: rgba(35, 35, 35, 0.14);
+  --network-node: rgba(255, 255, 255, 0.45);
+  --network-link: rgba(255, 255, 255, 0.28);
+}

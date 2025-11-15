@@ -8,12 +8,11 @@ import profileData from '../../public/profile.json';
 const siteTitle = galleryData.site?.title ?? 'Shoe Box';
 const items = galleryData.items as GalleryItemData[];
 const profileHero = profileData.profileHero;
-const contactCard = profileData.contactCard;
 const aboutCard = profileData.aboutCard;
 const showGallery = false;
 ---
 <Base title={siteTitle}>
-  <ProfileSection profileHero={profileHero} contactCard={contactCard} aboutCard={aboutCard} />
+  <ProfileSection profileHero={profileHero} aboutCard={aboutCard} />
   {showGallery && (
     <Gallery items={items} title="Featured Board" description="A curated snapshot of your work. Add pieces via public/gallery.json." />
   )}

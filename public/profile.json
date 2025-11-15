@@ -1,17 +1,12 @@
 {
   "profileHero": {
-    "name": "Your Name",
+    "name": "radicazz",
     "photo": "/media/profile.svg",
-    "title": "Your Title",
-    "location": "Location, 4321"
+    "title": "magic man",
+    "location": "10.1.1.1:22"
   },
   "aboutCard": {
-    "text": "I collect my most interesting snapshots, studies, and experiments in one tidy box.",
-    "skills": ["Systems Thinking", "Creative Direction", "Rapid Prototyping"]
-  },
-  "contactCard": {
-    "phone": "+1 (415) 555-0136",
-    "email": "you@example.com",
-    "github": "https://github.com/yourname"
+    "text": "I collect my most interesting snapshots, studies, and experiments in one tidy little box.",
+    "skills": ["Mashing Buttons", "Avoiding Tax", "Prompting AI"]
   }
 }

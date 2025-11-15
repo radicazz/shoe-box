@@ -1,31 +1,33 @@
-# about
+# shoe-box
 
-A lightweight, personal, image-first portfolio site for showcasing your hard work in style.
+[![Live](https://img.shields.io/badge/live-demo-blue)](https://radicazz.github.io/shoe-box/)
+[![Node](https://img.shields.io/badge/node-20.19.5-026e00)](https://github.com/radicazz/shoe-box)
+[![Build & Test](https://github.com/radicazz/shoe-box/actions/workflows/ci.yml/badge.svg)](https://github.com/radicazz/shoe-box/actions/workflows/ci.yml)
 
-> [!NOTE]
-> This project is under construction!
+Lightweight, image‑first personal gallery for shipping a portfolio with zero fuss.
 
-## quick start
+## ✨ Features
 
-Either download or clone the repo through git.
+- Modern, theme‑aware layout (dark/light, responsive)
+- Masonry‑style gallery powered by plain JSON data
+- No backend: deploy as static HTML anywhere (GitHub Pages, Netlify, etc.)
 
-```
-git clone https://www.github.com/radicazz/shoe-box.git/
-cd shoe-box
-```
-Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) on your machine for self-contained dependency management currently pinned at Node **20.19.5**.
+## 🚀 Getting started
 
 ```bash
-nvm use                  # Download & activate the correct Node version
-npm install              # Installs dependencies into node_modules/
-npm run dev              # Launches development server at http://localhost:4321
+git clone https://github.com/radicazz/shoe-box.git
+cd shoe-box
+
+nvm use           # pick Node 20.19.5 (from .nvmrc)
+npm install
+npm run dev       # http://localhost:4321
 ```
 
-**Helpful scripts:**
-- `./scripts/doctor` - Check environment health
-- `./scripts/clean` - Remove all build artifacts
-- `./scripts/ci-test` - Run CI pipeline locally
+Helpful scripts:
+- `./scripts/doctor` – check environment
+- `./scripts/clean` – clear build artifacts
+- `./scripts/ci-test` – run the CI pipeline locally
 
-## license
+## 📄 License
 
-MIT - See [LICENSE](LICENSE) for more details.
+MIT – see [LICENSE](LICENSE) for details.

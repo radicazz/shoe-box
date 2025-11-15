@@ -1,0 +1,29 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 20%, var(--parallax-layer-primary), transparent 55%),
+    radial-gradient(circle at 80% 0%, var(--parallax-layer-secondary), transparent 60%);
+  transform: translate(calc(var(--parallax-x) * 5), calc(var(--parallax-y) * 5));
+  transition: transform 150ms ease-out;
+}
+
+#network-layer {
+  transform: translate(calc(var(--parallax-x) * 4), calc(var(--parallax-y) * 4));
+  transition: transform 150ms ease-out;
+  mix-blend-mode: screen;
+}

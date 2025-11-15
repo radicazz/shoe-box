@@ -1,6 +1,4 @@
 ---
-import ContactCard from './profile/ContactCard.astro';
-import AboutCard from './profile/AboutCard.astro';
 import { composeEffects } from '../utils/effects';
 
 export interface ProfileHeroData {
@@ -10,13 +8,6 @@ export interface ProfileHeroData {
   location?: string;
 }
 
-export interface ContactCardData {
-  phone?: string;
-  email?: string;
-  github?: string;
-  linkedin?: string;
-}
-
 export interface AboutCardData {
   text?: string;
   skills?: string[];
@@ -24,37 +15,216 @@ export interface AboutCardData {
 
 export interface Props {
   profileHero: ProfileHeroData;
-  contactCard: ContactCardData;
   aboutCard?: AboutCardData;
 }
 
-const { profileHero, contactCard, aboutCard } = Astro.props as Props;
+const { profileHero, aboutCard } = Astro.props as Props;
 const isExternal = /^(?:[a-z]+:)?\/\//i;
 const normalizedBase = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 const normalizedPhoto = profileHero.photo.replace(/^\//, '');
 const resolvedPhoto = isExternal.test(profileHero.photo)
   ? profileHero.photo
   : `${normalizedBase ? normalizedBase : ''}/${normalizedPhoto}`;
+const skillList = (aboutCard?.skills ?? []).filter(Boolean);
+
+const sourceEntry = {
+  label: 'Source',
+  value: 'github.com/radicazz/shoe-box',
+  href: 'https://github.com/radicazz/shoe-box',
+};
+
+const linkEntries = [sourceEntry];
+
+const sectionHeadingClass = 'theme-text-muted text-sm font-semibold uppercase tracking-wide';
+const sectionBodyClass = 'mt-4 text-base leading-relaxed';
 ---
-<section class="py-16" aria-label="Profile overview">
-  <div class="flex flex-col items-center gap-6 text-center">
-    <div class={`inline-flex ${composeEffects('scale', 'shadow')}`}>
-      <img src={resolvedPhoto} alt={`Photo of ${profileHero.name}`} width="160" height="160" loading="eager" class="h-[140px] w-[140px] rounded-full object-cover shadow-md ring-4 ring-white ring-offset-2 ring-offset-gray-50 dark:ring-gray-900 dark:ring-offset-gray-800 sm:h-[160px] sm:w-[160px]" />
-    </div>
-    <div>
-      <p class="text-sm uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">Profile</p>
-      <h2 class="mt-2 text-4xl font-bold text-gray-900 dark:text-gray-50">{profileHero.name}</h2>
-      {(profileHero.title || profileHero.location) && (
-        <p class="mt-2 flex flex-wrap items-center justify-center gap-2 text-base font-medium text-gray-600 dark:text-gray-300">
-          {profileHero.title && <span>{profileHero.title}</span>}
-          {profileHero.title && profileHero.location && <span aria-hidden="true" class="text-gray-400">•</span>}
-          {profileHero.location && <span>{profileHero.location}</span>}
-        </p>
+	<section class="py-16" aria-label="Profile overview">
+	  <div class={`theme-panel effect-card-base w-full ${composeEffects('shadow', 'scale')} px-6 py-8 sm:px-8`}>
+	    <div class="mb-6 rounded-xl border px-4 py-3 theme-panel theme-panel--muted">
+	      <div class="grid grid-cols-[auto,1fr,auto] items-center gap-3">
+	        <div class="flex items-center gap-3">
+	          <div class="flex items-center gap-1.5" aria-hidden="true">
+	            <span class="h-3 w-3 rounded-full bg-red-400"></span>
+	            <span class="h-3 w-3 rounded-full bg-amber-300"></span>
+	            <span class="h-3 w-3 rounded-full bg-green-400"></span>
+	          </div>
+	          <p id="window-browser" class="theme-text-muted text-sm font-semibold tracking-wide">Browser</p>
+	        </div>
+	        <div class="flex justify-center">
+	          <p id="window-clock" class="theme-text-muted text-sm font-mono tracking-wide">--:--:--</p>
+	        </div>
+        <div class="flex items-center justify-end">
+          <button
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+            class={`theme-panel theme-panel--muted inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${composeEffects(
+              'border-slide',
+            )}`}
+            aria-label="Toggle color theme"
+          >
+            <span class="theme-icon theme-icon--sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
+                <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM4 2h2v4H4zm13.24 2.84l1.79-1.8-1.41-1.41-1.8 1.79 1.42 1.42zM18 2h2v4h-2zM11 4h2v4h-2zm9 7h4v2h-4zm-18 0h4v2H2zm15.66 7.66l1.79 1.79 1.41-1.41-1.79-1.8-1.41 1.42zM18 18h2v4h-2zm-4 2h2v4h-2zm-3-1a5 5 0 110-10 5 5 0 010 10zm-7.66 1.66l1.41 1.41 1.8-1.79-1.41-1.41-1.8 1.79z" />
+              </svg>
+            </span>
+            <span class="theme-icon theme-icon--moon" aria-hidden="true">
+	              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-4 w-4">
+	                <path d="M12.75 2a9.75 9.75 0 108.44 15.16 8 8 0 01-10-10 9.69 9.69 0 001.56-5.16z" />
+	              </svg>
+	            </span>
+	            <span class="sr-only" data-theme-toggle-label>Switch to dark mode</span>
+	          </button>
+        </div>
+      </div>
+	    </div>
+	    <div class="grid items-center gap-8 md:grid-cols-[auto,1fr]">
+	      <div class="flex flex-col items-center gap-6 text-center">
+	        <div class="inline-flex rounded-full">
+	          <img src={resolvedPhoto} alt={`Photo of ${profileHero.name}`} width="160" height="160" loading="eager" class="h-[140px] w-[140px] rounded-full object-cover ring-4 ring-white ring-offset-2 ring-offset-gray-50 dark:ring-gray-900 dark:ring-offset-gray-800 sm:h-[160px] sm:w-[160px]" />
+	        </div>
+        <div>
+          <h2 class="theme-heading mt-2 text-4xl font-bold">{profileHero.name}</h2>
+          {(profileHero.title || profileHero.location) && (
+            <p class="theme-text-muted mt-2 flex flex-wrap items-center justify-center gap-2 text-base font-medium">
+              {profileHero.title && <span>{profileHero.title}</span>}
+              {profileHero.title && profileHero.location && <span aria-hidden="true" class="theme-text-muted">•</span>}
+              {profileHero.location && <span>{profileHero.location}</span>}
+            </p>
+          )}
+          <p id="profile-clock" class="theme-text-muted mt-2 text-sm font-mono tracking-wide text-center">--:--:--</p>
+        </div>
+      </div>
+      {(aboutCard?.text || skillList.length > 0) && (
+        <div class="flex flex-col gap-6 text-left">
+          {aboutCard?.text && (
+            <div>
+              <p class={sectionHeadingClass}>About</p>
+              <p class={sectionBodyClass}>{aboutCard.text}</p>
+            </div>
+          )}
+          {skillList.length > 0 && (
+            <div>
+              <p class={sectionHeadingClass}>Skills</p>
+              <ul class={`mt-4 flex flex-wrap gap-2 text-base leading-relaxed`}>
+                {skillList.map((skill) => (
+                  <li class="theme-chip px-3 py-1 text-sm font-medium md:text-base">{skill}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {linkEntries.length > 0 && (
+            <div>
+              <p class={sectionHeadingClass}>Source</p>
+              <div class={sectionBodyClass}>
+                {linkEntries.map((entry) => (
+                  <a
+                    href={entry.href}
+                    target={entry.href.startsWith('http') ? '_blank' : undefined}
+                    rel={entry.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    class="theme-accent-link text-base font-medium"
+                  >
+                    {entry.value}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   </div>
-  <div class="mt-12 grid gap-6 lg:grid-cols-2 items-stretch">
-    <AboutCard text={aboutCard?.text} skills={aboutCard?.skills} />
-    <ContactCard contact={contactCard} />
-  </div>
 </section>
+
+<script is:inline>
+  (() => {
+    if (typeof window === 'undefined') return;
+    const windowClock = document.getElementById('window-clock');
+    const browserLabel = document.getElementById('window-browser');
+    const profileClock = document.getElementById('profile-clock');
+    if (!windowClock || !browserLabel || !profileClock) return;
+
+    const detectBrowserName = () => {
+      const ua = navigator.userAgent;
+      if (/OPR|Opera/i.test(ua)) return 'Opera';
+      if (/Edg/i.test(ua)) return 'Edge';
+      if (/Chrome/i.test(ua)) return 'Chrome';
+      if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
+      if (/Firefox/i.test(ua)) return 'Firefox';
+      return 'Browser';
+    };
+    browserLabel.textContent = detectBrowserName();
+
+    const sanitize = (value) => {
+      if (!value) return '';
+      return String(value).replace(/[^\w\s\-.,()\/@]/g, '');
+    };
+
+    const infoMessages = [];
+    let infoIndex = 0;
+    let rotationTimer = null;
+
+    windowClock.textContent = 'gathering client info...';
+
+    const updateProfileClock = () => {
+      try {
+        profileClock.textContent = new Date().toLocaleTimeString(undefined, {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+      } catch {
+        profileClock.textContent = new Date().toLocaleTimeString();
+      }
+    };
+
+    const rotateInfo = () => {
+      if (!infoMessages.length) return;
+      infoIndex = (infoIndex + 1) % infoMessages.length;
+      windowClock.textContent = infoMessages[infoIndex];
+    };
+
+    const setInfoMessages = (parts) => {
+      infoMessages.splice(0, infoMessages.length, ...(parts.length ? parts : ['client info unavailable']));
+      infoIndex = 0;
+      windowClock.textContent = infoMessages[0];
+      if (rotationTimer) {
+        clearInterval(rotationTimer);
+        rotationTimer = null;
+      }
+      if (infoMessages.length > 1) {
+        rotationTimer = setInterval(rotateInfo, 3000);
+      }
+    };
+
+    const collectInfo = async () => {
+      const parts = [];
+      const lang = sanitize(navigator.language || 'n/a');
+      const tz = sanitize(Intl.DateTimeFormat().resolvedOptions().timeZone || 'n/a');
+      const viewport = `${window.innerWidth}x${window.innerHeight}`;
+      parts.push(`lang ${lang}`);
+      parts.push(`tz ${tz}`);
+      parts.push(`viewport ${viewport}`);
+
+      try {
+        const response = await fetch('https://ipapi.co/json/', { cache: 'no-store' });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.ip) parts.push(`ip ${sanitize(data.ip)}`);
+          const location = [data.city, data.region, data.country_name].filter(Boolean).join(', ');
+          if (location) parts.push(`loc ${sanitize(location)}`);
+          if (data.org) parts.push(`isp ${sanitize(data.org)}`);
+        }
+      } catch (error) {
+        console.warn('Unable to fetch IP info', error);
+      } finally {
+        setInfoMessages(parts);
+      }
+    };
+
+    updateProfileClock();
+    setInterval(updateProfileClock, 1000);
+    collectInfo();
+  })();
+</script>
