@@ -22,6 +22,8 @@ const { profileHero, aboutCard } = Astro.props as Props;
 const isExternal = /^(?:[a-z]+:)?\/\//i;
 const normalizedBase = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 const normalizedPhoto = profileHero.photo.replace(/^\//, '');
+const defaultPhotoPath = `${normalizedBase ? normalizedBase : ''}/media/profile.svg`;
+const fallbackPhoto = normalizedPhoto === 'media/profile.svg' ? null : defaultPhotoPath;
 const resolvedPhoto = isExternal.test(profileHero.photo)
   ? profileHero.photo
   : `${normalizedBase ? normalizedBase : ''}/${normalizedPhoto}`;
@@ -81,7 +83,7 @@ const sectionBodyClass = 'mt-4 text-base leading-relaxed';
 	    <div class="grid items-center gap-8 md:grid-cols-[auto,1fr]">
 	      <div class="flex flex-col items-center gap-6 text-center">
 	        <div class="inline-flex rounded-full">
-	          <img src={resolvedPhoto} alt={`Photo of ${profileHero.name}`} width="160" height="160" loading="eager" class="h-[140px] w-[140px] rounded-full object-cover ring-4 ring-white ring-offset-2 ring-offset-gray-50 dark:ring-gray-900 dark:ring-offset-gray-800 sm:h-[160px] sm:w-[160px]" />
+	          <img src={resolvedPhoto} data-profile-photo="true" data-fallback-src={fallbackPhoto ?? undefined} alt={`Photo of ${profileHero.name}`} width="160" height="160" loading="eager" class="h-[140px] w-[140px] rounded-full object-cover ring-4 ring-white ring-offset-2 ring-offset-gray-50 dark:ring-gray-900 dark:ring-offset-gray-800 sm:h-[160px] sm:w-[160px]" />
 	        </div>
         <div>
           <h2 class="theme-heading mt-2 text-4xl font-bold">{profileHero.name}</h2>
@@ -139,6 +141,18 @@ const sectionBodyClass = 'mt-4 text-base leading-relaxed';
 <script is:inline>
   (() => {
     if (typeof window === 'undefined') return;
+    const profilePhoto = document.querySelector('[data-profile-photo]');
+    if (profilePhoto instanceof HTMLImageElement) {
+      const fallbackSrc = profilePhoto.getAttribute('data-fallback-src');
+      if (fallbackSrc) {
+        profilePhoto.addEventListener('error', () => {
+          if (profilePhoto.dataset.fallbackApplied === 'true') return;
+          profilePhoto.dataset.fallbackApplied = 'true';
+          profilePhoto.src = fallbackSrc;
+        });
+      }
+    }
+
     const windowClock = document.getElementById('window-clock');
     const browserLabel = document.getElementById('window-browser');
     const profileClock = document.getElementById('profile-clock');
