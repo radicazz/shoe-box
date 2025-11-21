@@ -4,13 +4,13 @@
 
 <div
   id="gallery-modal"
-  class="gallery-modal fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4"
+  class="gallery-modal fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-md p-4 dark:bg-black/80"
   role="dialog"
   aria-modal="true"
   aria-labelledby="modal-title"
   data-gallery-modal
 >
-  <div class="gallery-modal-container theme-panel relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl p-0">
+  <div class="gallery-modal-container theme-panel relative my-8 max-h-[calc(100vh-4rem)] w-full max-w-4xl overflow-y-auto rounded-2xl p-0">
     <!-- Close button -->
     <button
       type="button"
@@ -142,7 +142,8 @@
               View Project
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              </svg>Images: web-app, actions-api, document-service, postgrest-api, temporal-worker, db-migrator (tag 1397a79).
+
             </a>
           </div>
         `;
@@ -150,7 +151,7 @@
 
       modalContent.innerHTML = `
         ${imagesHTML}
-        <div class="px-6 pb-6">
+        <div class="${hasImages ? 'px-6 pb-6' : 'p-6'}">
           <div class="mb-4">
             <h2 id="modal-title" class="theme-heading text-3xl font-bold mb-2">${itemData.title}</h2>
             ${itemData.details.date ? `<p class="theme-text-muted text-sm">${itemData.details.date}</p>` : ''}
